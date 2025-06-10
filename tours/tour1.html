@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương trình Du Xuân 2 Ngày</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .tour-detail {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .tour-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/chuatamchuc1.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .tour-header h1 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .tour-header p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .tour-price {
+            font-size: 1.8rem;
+            color: #1e88e5;
+            font-weight: bold;
+            margin: 1rem 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .tour-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .tour-gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tour-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .tour-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .tour-description, .tour-schedule, .booking-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tour-description h2, .tour-schedule h2, .booking-form h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .tour-description h2::after, .tour-schedule h2::after, .booking-form h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #1e88e5;
+        }
+
+        .tour-description p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .tour-description ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tour-description ul li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #666;
+        }
+
+        .tour-description ul li::before {
+            content: "•";
+            color: #1e88e5;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .tour-schedule {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .schedule-day {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .schedule-day h3 {
+            color: #1e88e5;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            border-bottom: 2px solid #1e88e5;
+            padding-bottom: 0.8rem;
+        }
+
+        .schedule-meals {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .schedule-timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin-left: 1rem;
+        }
+
+        .schedule-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #1e88e5;
+        }
+
+        .schedule-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .schedule-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .schedule-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 50%;
+            background: #1e88e5;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #1e88e5;
+        }
+
+        .time {
+            display: inline-block;
+            background: #1e88e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .activity {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .activity p {
+            margin-bottom: 1.2rem;
+            color: #444;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .activity ul {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .activity ul li {
+            position: relative;
+            margin-bottom: 1rem;
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .activity ul li::before {
+            content: "•";
+            color: #1e88e5;
+            position: absolute;
+            left: -1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #1e88e5;
+            outline: none;
+        }
+
+        .book-now-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .book-now-btn:hover {
+            background-color: #1565c0;
+        }
+
+        @media (max-width: 768px) {
+            .schedule-timeline {
+                padding-left: 2rem;
+                margin-left: 0.5rem;
+            }
+
+            .schedule-item::before {
+                left: -2.5rem;
+            }
+
+            .schedule-day {
+                padding: 1.5rem;
+            }
+
+            .activity {
+                padding: 1.2rem;
+            }
+
+            .schedule-day h3 {
+                font-size: 1.4rem;
+            }
+
+            .time {
+                font-size: 1rem;
+            }
+
+            .activity p,
+            .activity ul li {
+                font-size: 1rem;
+            }
+        }
+
+        .tour-description {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tour-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #2c3e50;
+        }
+
+        .info-item i {
+            color: #1e88e5;
+            font-size: 1.2rem;
+        }
+
+        .tour-overview {
+            margin-bottom: 2rem;
+        }
+
+        .tour-overview p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .service-included,
+        .service-excluded,
+        .children-policy,
+        .tour-notes {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .service-included h3,
+        .service-excluded h3,
+        .children-policy h3,
+        .tour-notes h3 {
+            color: #1e88e5;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #1e88e5;
+            padding-bottom: 0.5rem;
+        }
+
+        .service-included ul,
+        .service-excluded ul,
+        .children-policy ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .service-included ul li,
+        .service-excluded ul li,
+        .children-policy ul li {
+            position: relative;
+            margin-bottom: 0.8rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .service-included ul li::before,
+        .service-excluded ul li::before,
+        .children-policy ul li::before {
+            content: "•";
+            color: #1e88e5;
+            position: absolute;
+            left: -1.2rem;
+            font-size: 1.2rem;
+        }
+
+        .service-included ul ul {
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-included ul ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tour-notes p {
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .tour-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-included,
+            .service-excluded,
+            .children-policy,
+            .tour-notes {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../images/logo.jpg" alt="Halongtourist Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../index.html#tours">Tour du lịch</a></li>
+                <li><a href="../index.html#about">Giới thiệu</a></li>
+                <li><a href="../index.html#team">Nhân sự</a></li>
+                <li><a href="../index.html#testimonials">Đánh giá</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="tour-detail">
+        <div class="tour-header">
+            <h1>Chương trình Du Xuân</h1>
+            <p>HẠ LONG – CHÙA TAM CHÚC – ĐỊA TẠNG PHI LAI TỰ – BÁI ĐÍNH – DANH THẮNG TRÀNG AN - HẠ LONG</p>
+            <div class="tour-price">Giá: 2,250,000 VNĐ/khách</div>
+        </div>
+
+        <div class="tour-gallery">
+            <img src="../images/chuatamchuc1.jpg" alt="Chùa Tam Chúc">
+            <img src="../images/chuatamchuc2.jpg" alt="Địa Tạng Phi Lai Tự">
+            <img src="../images/chuatamchuc3.jpg" alt="Bái Đính">
+        </div>
+
+        <div class="tour-info">
+            <div class="tour-description">
+                <h2>Mô tả tour</h2>
+                <div class="tour-info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Thời gian: 2 ngày</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-car"></i>
+                        <span>Phương tiện: Ô tô</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>Khởi hành: /2025</span>
+                    </div>
+                </div>
+
+                <div class="tour-overview">
+                    <p>Khám phá Khu Du lịch Tâm linh Chùa Tam Chúc là Quần thể du lịch tâm linh trọng điểm nối liền 4 tỉnh: Hà Nội – Hà Nam – Hòa Bình – Ninh Bình. Địa Tạng Phi Lai Tự - Ngôi chùa đẹp quên lối về ở Hà Nam. Nhiều du khách tìm đến ngôi chùa này như một chốn bình yên để gột rửa tâm hồn, nguyện cầu cho những điều tốt đẹp sẽ đến.</p>
+                    <p>Ninh Bình một tỉnh thuộc Miền Bắc nước ta, cách thủ đô Hà Nội 90km về phía Nam. Đến với Tour du lịch Ninh Bình du khách sẽ được tham quan với nhiều danh lam thắng đẹp cả về cảnh quan và ý nghĩa lịch sử.</p>
+                </div>
+
+                <div class="service-included">
+                    <h3>DỊCH VỤ BAO GỒM</h3>
+                    <ul>
+                        <li>Xe ô tô 45 chỗ đời mới tiêu chuẩn du lịch đưa đón theo lịch trình.</li>
+                        <li>Mức ăn gồm:
+                            <ul>
+                                <li>Ăn chính: 4 bữa (150.000 VND/suất)</li>
+                                <li>Ăn sáng: 1 bữa (50.000 VND/suất)</li>
+                            </ul>
+                        </li>
+                        <li>Vé thắng cảnh vào cửa 01 lần có trong chương trình.</li>
+                        <li>Vé thuyền Tam Chúc 290.000vnđ/khách</li>
+                        <li>Vé xe điện khứ hồi Bái Đính 100.000vnđ/khách</li>
+                        <li>Vé tham quan Tràng An 250.000vnđ/khách</li>
+                        <li>Nước suối 01 chai/ khách/ ngày</li>
+                        <li>Bảo hiểm du lịch theo quy định (Mức tối đa 50.000.000đ/sự vụ)</li>
+                        <li>Hướng dẫn viên nhiệt tình, chu đáo theo suốt chương trình</li>
+                        <li>Chương trình Gala với MC chuyên nghiệp</li>
+                        <li>Quà tặng: Mũ du lịch Hạ Long Tourist.</li>
+                    </ul>
+                </div>
+
+                <div class="service-excluded">
+                    <h3>DỊCH VỤ KHÔNG BAO GỒM</h3>
+                    <ul>
+                        <li>Chi phí lễ tại các điểm chùa, đền trong chương trình</li>
+                        <li>Các chi phí cá nhân, chi phí tham quan ngoài chương trình</li>
+                        <li>Tiền bồi dưỡng cho hướng dẫn viên và lái xe</li>
+                        <li>Thuế VAT.</li>
+                    </ul>
+                </div>
+
+                <div class="children-policy">
+                    <h3>Giá quy định cho trẻ em đi kèm</h3>
+                    <ul>
+                        <li>Trẻ em dưới 5 tuổi: Miễn phí ăn ngủ chung với bố mẹ (Mỗi bố mẹ chỉ được kèm 01 bé MP, bé thứ hai thu 50% dịch vụ).</li>
+                        <li>Trẻ em từ 5 -10 tuổi: 75% giá dịch vụ người lớn (ngủ chung giường với bố mẹ, vé tham quan và suất ăn như người lớn)</li>
+                        <li>Trẻ em từ 10 tuổi trở lên: 100% giá dịch vụ người lớn</li>
+                    </ul>
+                </div>
+
+                <div class="tour-notes">
+                    <h3>LƯU Ý</h3>
+                    <p>Thứ tự các điểm tham quan trong chương trình có thể thay đổi nhưng vẫn giữ nguyên số lượng các điểm tham quan.</p>
+                </div>
+            </div>
+
+            <div class="tour-schedule">
+                <h2>Lịch trình</h2>          
+                <div class="schedule-day">
+                    <h3>NGÀY 1: HẠ LONG - CHÙA TAM CHÚC - ĐỊA TẠNG PHI LAI TỰ</h3>                
+                    <div class="schedule-timeline">
+                        <div class="schedule-item">
+                            <span class="time">04h00</span>
+                            <div class="activity">
+                                <p>Xe và hướng dẫn viên của Công ty Hạ Long Tourist đón Quý khách tại điểm hẹn đi Hà Nam. Quý khách ăn sáng trên đường đi.</p>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">07h30</span>
+                            <div class="activity">
+                                <p>Quý khách đến quần thể du lịch tâm linh chùa Tam Chúc tham quan:</p>
+                                <ul>
+                                    <li>Nhà khách Thủy Đình – nơi có các bức tranh mô tả toàn cảnh của ngôi chùa, quý khách có thể tự do ngắm cảnh và chụp ảnh.</li>
+                                    <li>Lên bến thuyền di chuyển vào chùa Tam Chúc - ngôi chùa lớn nhất thế giới tại Hà Nam tham quan Cổng Tam Quan, Điện Tam Thế, Điện Giao Chủ, Điện Quan Âm, Tháp Phật Ngọc</li>
+                                    <li>Sau đó Quý khách có cơ hội chinh phục 300 bậc đá tới điện Phật Ngọc từ trên cao có thể ngắm nhìn khung cảnh kì vĩ Hồ Tam Chúc.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">12h00</span>
+                            <div class="activity">
+                                <p>Sau đó, xe và HDV tiếp tục hành trình đưa quý khách đến dâng hương tại:</p>
+                                <ul>
+                                    <li>Địa Tạng Phi Lai Tự (trước từng được gọi là chùa Đùng) – ngôi chùa nổi tiếng với nét đẹp yên bình tại Hà Nam. Vị trí chùa ở trên một ngọn đồi, không gian rộng và bằng phẳng nên từ xa du khách có thể thấy một ngôi chùa có kiến trúc đẹp, không gian bình lặng bậc nhất Hà Nam.</li>
+                                </ul>
+                                <p>Đoàn ăn trưa tại nhà hàng địa phương.</p>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">14h00</span>
+                            <div class="activity">
+                                <p>Sau bữa trưa, Quý khách di chuyển về với Ninh Bình. Tại mảnh đất Cố đô Hoa Lư, quý khách ghé thăm và dâng hương tại:</p>
+                                <ul>
+                                    <li>Chùa Bái Đính - Là ngôi chùa có bề dày lịch sử hơn 1000 năm, tồn tại song hành cùng các triều đại phong kiến nhà Đinh, Tiền Lê và đầu nhà Lý và được mệnh danh là đệ nhất danh thắng tâm linh ở vùng đất này.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">19h00</span>
+                            <div class="activity">
+                                <p>Sau tham quan, đoàn tiếp tục hành trình di chuyển về khách sạn nhận phòng và nghỉ ngơi.</p>
+                                <p>Quý khách dùng bữa tối tại nhà hàng.</p>
+                                <p>Sau bữa tối, quý khách tự do khám phá Phố cổ Hoa Lư về đêm.</p>
+                                <p>Nghỉ đêm tại khách sạn 3* Ninh Bình</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="schedule-day">
+                    <h3>NGÀY 2: DANH THẮNG TRÀNG AN - ĐỀN TRẦN - HẠ LONG</h3>
+                    <div class="schedule-timeline">
+                        <div class="schedule-item">
+                            <span class="time">07h30</span>
+                            <div class="activity">
+                                <p>Quý khách ăn sáng tại khách sạn và làm thủ tục trả phòng. Sau đó đoàn lên xe tiếp tục hành trình tham quan tại:</p>
+                                <ul>
+                                    <li>Danh thắng Tràng An - được ví như một "Hạ Long trên cạn" với vẻ đẹp tráng lệ được tạo nên bởi hệ thống núi đá muôn hình vạn trạng soi bóng xuống những dòng suối nhỏ quanh co, uốn lượn nối liền các hang động và thung lũng hoang sơ. Vẻ hài hòa của đá, sông nước, rừng cây và bầu trời ở Tràng An tạo nên một thế giới tự nhiên sống động đầy quyến rũ. Nơi đây còn là nơi bảo tồn và chứa đựng nhiều hệ sinh thái rừng ngập nước, rừng trên núi đá vôi, các di chỉ khảo cổ học và các di tích lịch sử văn hóa đặc sắc.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">11h00</span>
+                            <div class="activity">
+                                <p>Quý khách dùng bữa trưa tại nhà hàng.</p>
+                                <p>Sau bữa trưa, quý đoàn tiếp tục hành trình di chuyển về Nam Định. Tại đây, HDV đưa đoàn đến dâng hương tại:</p>
+                                <ul>
+                                    <li>Đền Trần - là khu di tích thờ 14 vị vua nhà Trần cùng gia quyến và các quan lại có công với đất nước. Nơi đây nổi tiếng với Lễ khai ấn Đền Trần đầu xuân và Hội Đền Trần tháng tám. Hàng năm, Đền Trần Nam Định thu hút đông đảo du khách thập phương về dự lễ khai ấn. Nhằm tri ân công đức các vua Trần và cầu khấn những điều may mắn, tốt đẹp.</li>
+                                    <li>Đền Đồng Bằng - được nhân dân biết đến là một ngôi đền linh thiêng có từ thời vua Hùng Vương thứ 18. Đền có sắc phong "Tam Kỳ Linh Ứng - Vĩnh Công Đại Vương Tối Thượng Đẳng Linh Thần".</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">18h30</span>
+                            <div class="activity">
+                                <p>Trên đường về với Hạ Long, đoàn dừng chân dùng bữa tối tại nhà hàng ở Hạ Long.</p>
+                                <p>Sau bữa tối, xe và hướng dẫn viên của Hạ Long Tourist trả khách tại điểm hẹn, kết thúc hành trình tham quan, chia tay Quý khách và mong được phục vụ Quý khách trong hành trình du lịch gần nhất.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-form">
+            <h2>Đặt tour ngay</h2>
+            <form id="booking-form">
+                <div class="form-group">
+                    <label for="name">Họ và tên</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Ngày đi</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Số người</label>
+                    <select id="guests" required>
+                        <option value="1">1 người</option>
+                        <option value="2">2 người</option>
+                        <option value="3">3 người</option>
+                        <option value="4">4 người</option>
+                        <option value="5">5 người trở lên</option>
+                    </select>
+                </div>
+                <button type="submit" class="book-now-btn">Đặt tour ngay</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section company-info">
+                <h3>CÔNG TY TNHH DU LỊCH VÀ THƯƠNG MẠI HẠ LONG TOURIST</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Trụ sở chính:</h4>
+                            <p>Số 15 đường Tân Lập, phường Hà Phong, TP.Hạ Long, Quảng Ninh</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-building"></i>
+                        <div>
+                            <h4>Văn phòng đại diện:</h4>
+                            <p>07 Trần Bình Trọng, phường Bãi Cháy, TP.Hạ Long, Quảng Ninh</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Liên hệ:</h4>
+                            <p>0203.655.8910 - 0969.818.366</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email:</h4>
+                            <p>Halongtourist@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section quick-links">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="../index.html#tours">Tour du lịch</a></li>
+                    <li><a href="../index.html#about">Giới thiệu</a></li>
+                    <li><a href="../index.html#team">Nhân sự</a></li>
+                    <li><a href="../index.html#testimonials">Đánh giá</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section social-media">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="https://zalo.me/84969818366" class="social-link" target="_blank">
+                        <img src="../images/logo_zalo.png" alt="Zalo">
+                        <span>Zalo</span>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100076413078560" class="social-link" target="_blank">
+                        <img src="../images/logo_facebook.png" alt="Facebook">
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@ha.long.tourist?_r=1&_d=secCgYIASAHKAESPgo8pqlWPthVQuJx2KdpGzohZI0bKOI3JdKJYu3tzROnRCR7VrW6khuqvNjjhwVKIk30HAwWp05Iki4CekqtGgA%3D&checksum=81410ec95d95ba01a47cfa1bbb1a942daf89653c98aa0596db295bbdff66ca71&sec_uid=MS4wLjABAAAAf3H2IS0edW_II32J-cZ3yyvjjogZHLDJtNR6Q1Hl1I-CfnfFtx97p_mqUKHxb13N&sec_user_id=MS4wLjABAAAAf3H2IS0edW_II32J-cZ3yyvjjogZHLDJtNR6Q1Hl1I-CfnfFtx97p_mqUKHxb13N&share_app_id=1180&share_author_id=7473095532559533063&share_link_id=D40FE224-5460-44E7-8311-58E35B12A767&sharer_language=vi&social_share_type=4&source=h5_t&timestamp=1740375557&tt_from=copy&u_code=ej050ih83446f8&ug_btm=b8727%2Cb0&user_id=7473095532559533063&utm_campaign=client_share&utm_medium=ios&utm_source=copy" class="social-link" target="_blank">
+                        <img src="../images/logo_tiktok.png" alt="TikTok">
+                        <span>TikTok</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Halongtourist. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Chính sách bảo mật</a>
+                    <a href="#">Điều khoản sử dụng</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Xử lý form đặt tour
+        const bookingForm = document.getElementById('booking-form');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const bookingData = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    date: formData.get('date'),
+                    guests: formData.get('guests')
+                };
+
+                // Here you would typically send the data to a server
+                console.log('Booking submitted:', bookingData);
+                
+                alert('Cảm ơn bạn đã đặt tour! Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.');
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html> 

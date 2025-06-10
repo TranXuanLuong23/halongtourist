@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương trình Du Xuân 1 ngày</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .tour-detail {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .tour-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/cuaong_yentu.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .tour-header h1 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .tour-header p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .tour-price {
+            font-size: 1.8rem;
+            color: #1e88e5;
+            font-weight: bold;
+            margin: 1rem 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .tour-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .tour-gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tour-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .tour-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .tour-description, .tour-schedule, .booking-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tour-description h2, .tour-schedule h2, .booking-form h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .tour-description h2::after, .tour-schedule h2::after, .booking-form h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #1e88e5;
+        }
+
+        .tour-description p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .tour-description ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tour-description ul li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #666;
+        }
+
+        .tour-description ul li::before {
+            content: "•";
+            color: #1e88e5;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .tour-schedule {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .schedule-day {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .schedule-day h3 {
+            color: #1e88e5;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            border-bottom: 2px solid #1e88e5;
+            padding-bottom: 0.8rem;
+        }
+
+        .schedule-meals {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .schedule-timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin-left: 1rem;
+        }
+
+        .schedule-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #1e88e5;
+        }
+
+        .schedule-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .schedule-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .schedule-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 50%;
+            background: #1e88e5;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #1e88e5;
+        }
+
+        .time {
+            display: inline-block;
+            background: #1e88e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .activity {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .activity p {
+            margin-bottom: 1.2rem;
+            color: #444;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .activity ul {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .activity ul li {
+            position: relative;
+            margin-bottom: 1rem;
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .activity ul li::before {
+            content: "•";
+            color: #1e88e5;
+            position: absolute;
+            left: -1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #1e88e5;
+            outline: none;
+        }
+
+        .book-now-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .book-now-btn:hover {
+            background-color: #1565c0;
+        }
+
+        @media (max-width: 768px) {
+            .schedule-timeline {
+                padding-left: 2rem;
+                margin-left: 0.5rem;
+            }
+
+            .schedule-item::before {
+                left: -2.5rem;
+            }
+
+            .schedule-day {
+                padding: 1.5rem;
+            }
+
+            .activity {
+                padding: 1.2rem;
+            }
+
+            .schedule-day h3 {
+                font-size: 1.4rem;
+            }
+
+            .time {
+                font-size: 1rem;
+            }
+
+            .activity p,
+            .activity ul li {
+                font-size: 1rem;
+            }
+        }
+
+        .tour-description {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tour-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #2c3e50;
+        }
+
+        .info-item i {
+            color: #1e88e5;
+            font-size: 1.2rem;
+        }
+
+        .tour-overview {
+            margin-bottom: 2rem;
+        }
+
+        .tour-overview p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .service-included,
+        .service-excluded,
+        .children-policy,
+        .tour-notes {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .service-included h3,
+        .service-excluded h3,
+        .children-policy h3,
+        .tour-notes h3 {
+            color: #1e88e5;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #1e88e5;
+            padding-bottom: 0.5rem;
+        }
+
+        .service-included ul,
+        .service-excluded ul,
+        .children-policy ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .service-included ul li,
+        .service-excluded ul li,
+        .children-policy ul li {
+            position: relative;
+            margin-bottom: 0.8rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .service-included ul li::before,
+        .service-excluded ul li::before,
+        .children-policy ul li::before {
+            content: "•";
+            color: #1e88e5;
+            position: absolute;
+            left: -1.2rem;
+            font-size: 1.2rem;
+        }
+
+        .service-included ul ul {
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-included ul ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tour-notes p {
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .tour-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-included,
+            .service-excluded,
+            .children-policy,
+            .tour-notes {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../images/logo.jpg" alt="Halongtourist Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../index.html#tours">Tour du lịch</a></li>
+                <li><a href="../index.html#about">Giới thiệu</a></li>
+                <li><a href="../index.html#team">Nhân sự</a></li>
+                <li><a href="../index.html#testimonials">Đánh giá</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="tour-detail">
+        <div class="tour-header">
+            <h1>Chương trình Du Xuân</h1>
+            <p>CỬA ÔNG - YÊN TỬ - CỬA ÔNG</p>
+            <div class="tour-price">Giá: 1,650,000 VNĐ/khách</div>
+        </div>
+
+        <div class="tour-gallery">
+            <img src="../images/cuaong_yentu1.jpg" alt="">
+            <img src="../images/cuaong_yentu2.jpg" alt="">
+            <img src="../images/cuaong_yentu.jpg" alt="">
+        </div>
+
+        <div class="tour-info">
+            <div class="tour-description">
+                <h2>Mô tả tour</h2>
+                <div class="tour-info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Thời gian: 1 ngày</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-car"></i>
+                        <span>Phương tiện: Ô tô</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>Khởi hành: /2025</span>
+                    </div>
+                </div>
+
+                <div class="tour-overview">
+                    <p>Núi Yên Tử còn có tên gọi khác là núi Tượng Đầu, là ngọn núi nằm giữa ranh giới 2 tỉnh Bắc Giang và Quảng Ninh. Ngọn núi này thuộc dãy núi Đông Triều vùng Đông Bắc nước ta với chiều cao 1068m so với mực nước biển.</p>
+                    <p>Khu du lịch Yên Tử là nơi lưu giữ các di tích lịch sử, văn hóa gắn liền với sự hình thành và phát triển của thiền phái Trúc Lâm Yên Tử. Cùng với phong cảnh núi non tuyệt đẹp, khí hậu mát mẻ, thiên nhiên trong lành, nơi đây trở thành địa điểm du lịch tâm linh thu hút du khách xa gần.</p>
+                </div>
+
+                <div class="service-included">
+                    <h3>DỊCH VỤ BAO GỒM</h3>
+                    <ul>
+                        <li>Xe ô tô máy lạnh đời mới, lái xe kinh nghiệm suốt tuyến.</li>
+                        <li>Mức ăn gồm:
+                            <ul>
+                                <li>Ăn chính: 01 bữa (200.000 VND/suất - khách tự ăn trưa)</li>
+                                <li>Ăn tối: 01 bữa Gala (400.000 VND/suất)</li>
+                                <li>Ăn sáng: 1 bữa (50.000 VND/suất)</li>
+                            </ul>
+                        </li>
+                        <li>Vé thắng cảnh vào cửa 01 lần có trong chương trình</li>
+                        <li>Vé cáp treo khứ hồi 02 chặng 340.000 VND/vé</li>
+                        <li>Chương trình Gala Dinner cùng quà tặng hấp dẫn</li>
+                        <li>Hướng dẫn viên nhiệt tình, chu đáo theo suốt chương trình</li>
+                        <li>Nước suối 01 chai/khách/ngày</li>
+                        <li>Bảo hiểm du lịch theo quy định (Mức tối đa 50.000.000đ/sự vụ)</li>
+                        <li>Quà tặng hấp dẫn: mũ du lịch của Hạ Long Tourist</li>
+                    </ul>
+                </div>
+
+                <div class="service-excluded">
+                    <h3>DỊCH VỤ KHÔNG BAO GỒM</h3>
+                    <ul>
+                        <li>Các chi phí cá nhân, chi phí tham quan ngoài chương trình</li>
+                        <li>Tiền bồi dưỡng cho hướng dẫn viên và lái xe</li>
+                        <li>Thuế VAT</li>
+                    </ul>
+                </div>
+
+                <div class="tour-notes">
+                    <h3>LƯU Ý</h3>
+                    <p>Thứ tự các điểm tham quan trong chương trình có thể thay đổi nhưng vẫn giữ nguyên số lượng các điểm tham quan.</p>
+                </div>
+
+                <div class="children-policy">
+                    <h3>Giá quy định cho trẻ em đi kèm</h3>
+                    <ul>
+                        <li>Trẻ em dưới 5 tuổi: Miễn phí ăn ngủ chung với bố mẹ (Mỗi bố mẹ chỉ được kèm 01 bé MP, bé thứ hai thu 50% dịch vụ).</li>
+                        <li>Trẻ em từ 5 -10 tuổi: 70% giá dịch vụ người lớn (ngủ chung giường với bố mẹ, vé tham quan và suất ăn như người lớn)</li>
+                        <li>Trẻ em từ 10 tuổi trở lên: 100% giá dịch vụ người lớn</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tour-schedule">
+                <h2>Lịch trình</h2>          
+                <div class="schedule-day">
+                    <h3>CẨM PHẢ - YÊN TỬ - CẨM PHẢ</h3>                
+                    <div class="schedule-timeline">
+                        <div class="schedule-item">
+                            <span class="time">06h00</span>
+                            <div class="activity">
+                                <p>Xe và hướng dẫn viên của Công ty du lịch Hạ Long Tourist đón Quý khách tại điểm hẹn khởi hành chương trình du xuân Yên Tử.</p>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">07h00</span>
+                            <div class="activity">
+                                <p>Quý khách ăn sáng tại nhà hàng.</p>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">09h30</span>
+                            <div class="activity">
+                                <p>Xe và HDV sẽ cùng Quý khách đến dâng hương tại:</p>
+                                <ul>
+                                    <li>Chùa Trình - Là nơi du khách thập phương thực hành tín lễ "đi trình về tạ" mỗi khi hành hương về Yên Tử. Đoàn thực hiện nghi lễ dâng hương xin may mắn và sức khỏe, tài lộc đầu năm.</li>
+                                </ul>
+                                <p>Hướng dẫn viên làm thủ tục vé cáp treo, đoàn ngồi cáp treo lên chùa:</p>
+                                <ul>
+                                    <li>Chùa Hoa Yên - Nơi tu hành, thành đạo, truyền thừa của các thế hệ Tổ Thiền Trúc Lâm Yên Tử.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">10h30</span>
+                            <div class="activity">
+                                <p>Đoàn làm lễ dâng hương và tiếp tục hành trình bằng cáp treo lên chùa Đồng. Trên đường lên quý khách dừng chân tại:</p>
+                                <ul>
+                                    <li>Quảng trường Phật Hoàng Trần Nhân Tông - Nơi đặt pho tượng Phật Hoàng bằng đồng nặng 138 tấn</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <span class="time">17h00</span>
+                            <div class="activity">
+                                <p>Quý khách làm lễ dâng hương trước tượng Phật Hoàng và nghỉ ngơi thư giãn tại quảng trường, thưởng ngoạn phong cảnh hung vĩ của núi rừng Yên Tử. Sau đó quý khách tiếp tục lên:</p>
+                                <ul>
+                                    <li>Chùa Đồng - Có tên gọi khác là chùa Thiên Trúc. Chùa Đồng tọa lạc trên đỉnh núi Yên Tử, với độ cao 1068m. Vào Năm 2007, chùa Đồng đã được xác lập kỷ lục là ngôi chùa bằng đồng lớn nhất Việt Nam.</li>
+                                </ul>
+                                <p>Quý khách lên xe về Hạ Long dùng bữa tối tại nhà hàng với chương trình Gala dinner "Chào Xuân Ất Tỵ" cùng các trò chơi vui nhộn mang lại tiếng cười vui vẻ đầu xuân.</p>
+                                <p>Sau bữa tối, xe đưa Quý khách về điểm hẹn ban đầu, hướng dẫn viên chia tay Quý khách, mong được phục vụ Quý khách trong hành trình du lịch gần nhất.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="booking-form">
+            <h2>Đặt tour ngay</h2>
+            <form id="booking-form">
+                <div class="form-group">
+                    <label for="name">Họ và tên</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Ngày đi</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Số người</label>
+                    <select id="guests" required>
+                        <option value="1">1 người</option>
+                        <option value="2">2 người</option>
+                        <option value="3">3 người</option>
+                        <option value="4">4 người</option>
+                        <option value="5">5 người trở lên</option>
+                    </select>
+                </div>
+                <button type="submit" class="book-now-btn">Đặt tour ngay</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section company-info">
+                <h3>CÔNG TY TNHH DU LỊCH VÀ THƯƠNG MẠI HẠ LONG TOURIST</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Trụ sở chính:</h4>
+                            <p>Số 15 đường Tân Lập, phường Hà Phong, TP.Hạ Long, Quảng Ninh</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-building"></i>
+                        <div>
+                            <h4>Văn phòng đại diện:</h4>
+                            <p>07 Trần Bình Trọng, phường Bãi Cháy, TP.Hạ Long, Quảng Ninh</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Liên hệ:</h4>
+                            <p>0203.655.8910 - 0969.818.366</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email:</h4>
+                            <p>Halongtourist@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section quick-links">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="../index.html#tours">Tour du lịch</a></li>
+                    <li><a href="../index.html#about">Giới thiệu</a></li>
+                    <li><a href="../index.html#team">Nhân sự</a></li>
+                    <li><a href="../index.html#testimonials">Đánh giá</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section social-media">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="https://zalo.me/84969818366" class="social-link" target="_blank">
+                        <img src="../images/logo_zalo.png" alt="Zalo">
+                        <span>Zalo</span>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100076413078560" class="social-link" target="_blank">
+                        <img src="../images/logo_facebook.png" alt="Facebook">
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@ha.long.tourist?_r=1&_d=secCgYIASAHKAESPgo8pqlWPthVQuJx2KdpGzohZI0bKOI3JdKJYu3tzROnRCR7VrW6khuqvNjjhwVKIk30HAwWp05Iki4CekqtGgA%3D&checksum=81410ec95d95ba01a47cfa1bbb1a942daf89653c98aa0596db295bbdff66ca71&sec_uid=MS4wLjABAAAAf3H2IS0edW_II32J-cZ3yyvjjogZHLDJtNR6Q1Hl1I-CfnfFtx97p_mqUKHxb13N&sec_user_id=MS4wLjABAAAAf3H2IS0edW_II32J-cZ3yyvjjogZHLDJtNR6Q1Hl1I-CfnfFtx97p_mqUKHxb13N&share_app_id=1180&share_author_id=7473095532559533063&share_link_id=D40FE224-5460-44E7-8311-58E35B12A767&sharer_language=vi&social_share_type=4&source=h5_t&timestamp=1740375557&tt_from=copy&u_code=ej050ih83446f8&ug_btm=b8727%2Cb0&user_id=7473095532559533063&utm_campaign=client_share&utm_medium=ios&utm_source=copy" class="social-link" target="_blank">
+                        <img src="../images/logo_tiktok.png" alt="TikTok">
+                        <span>TikTok</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Halongtourist. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Chính sách bảo mật</a>
+                    <a href="#">Điều khoản sử dụng</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Xử lý form đặt tour
+        const bookingForm = document.getElementById('booking-form');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const bookingData = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    date: formData.get('date'),
+                    guests: formData.get('guests')
+                };
+
+                // Here you would typically send the data to a server
+                console.log('Booking submitted:', bookingData);
+                
+                alert('Cảm ơn bạn đã đặt tour! Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.');
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html> 
