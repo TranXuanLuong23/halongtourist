@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quà Tặng - Halongtourist</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            width: 100%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #1e88e5;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        /* Mobile Navigation Styles */
+        @media screen and (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+                margin: 0;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid #eee;
+            }
+
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+        }
+
+        /* Main Content Styles */
+        .rewards-container {
+            max-width: 1200px;
+            margin: 5rem auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .reward-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .reward-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .reward-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .reward-info {
+            padding: 1.5rem;
+        }
+
+        .reward-info h3 {
+            margin: 0 0 1rem 0;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        .reward-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .reward-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .redeem-button, .zalo-button {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            flex: 1;
+            justify-content: center;
+            min-width: 140px;
+        }
+
+        .redeem-button {
+            background-color: #1e88e5;
+            color: white;
+        }
+
+        .redeem-button:hover {
+            background-color: #1565c0;
+        }
+
+        .zalo-button {
+            background-color: #0068ff;
+            color: white;
+        }
+
+        .zalo-button:hover {
+            background-color: #0052cc;
+        }
+
+        .points-info {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .points-info h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .points-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .points-info li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .points-info i {
+            color: #1e88e5;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            background-color: #1e88e5;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #1565c0;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media screen and (max-width: 768px) {
+            .rewards-container {
+                margin-top: 4rem;
+            }
+
+            .reward-actions {
+                flex-direction: column;
+            }
+
+            .redeem-button, .zalo-button {
+                width: 100%;
+            }
+
+            .points-info {
+                padding: 1rem;
+            }
+
+            .reward-info h3 {
+                font-size: 1.1rem;
+            }
+
+            .reward-info p {
+                font-size: 0.9rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.jpg" alt="Halongtourist Logo">
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Trang chủ</a></li>
+                <li><a href="index.html#tours">Tour du lịch</a></li>
+                <li><a href="index.html#about">Giới thiệu</a></li>
+                <li><a href="index.html#team">Nhân sự</a></li>
+                <li><a href="index.html#testimonials">Đánh giá</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="rewards-container">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Quay lại trang chủ
+            </a>
+            
+            <h1>Quà Tặng Đặc Biệt</h1>
+            <p>Khám phá những món quà lưu niệm độc đáo từ Hạ Long Tourist</p>
+
+            <div class="points-info">
+                <h3>Cơ Chế Tích Điểm</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Mỗi đánh giá 5 sao: +100 điểm</li>
+                    <li><i class="fas fa-check-circle"></i> Mỗi tour đã tham gia: +200 điểm</li>
+                    <li><i class="fas fa-check-circle"></i> Giới thiệu bạn bè: +150 điểm/người</li>
+                    <li><i class="fas fa-check-circle"></i> 500 điểm: Đổi lấy voucher 10%</li>
+                    <li><i class="fas fa-check-circle"></i> 1000 điểm: Đổi lấy bộ quà lưu niệm</li>
+                </ul>
+            </div>
+
+            <div class="rewards-grid">
+                <div class="reward-item">
+                    <img src="images/quatang1.jpg" alt="Quà tặng 1">
+                    <div class="reward-info">
+                        <h3>Cốc sứ Hạ Long Tourist</h3>
+                        <p>Cốc sứ cao cấp với họa tiết vịnh Hạ Long độc đáo, được thiết kế tinh tế và mang đậm bản sắc văn hóa địa phương.</p>
+                        <div class="reward-actions">
+                            <a href="#" class="redeem-button">
+                                <i class="fas fa-gift"></i> Đổi bằng điểm (800 điểm)
+                            </a>
+                            <a href="https://zalo.me/0354997400" class="zalo-button" target="_blank">
+                                <i class="fab fa-zalo"></i> Liên hệ Zalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reward-item">
+                    <img src="images/quatang2.jpg" alt="Quà tặng 2">
+                    <div class="reward-info">
+                        <h3>Bút máy Hạ Long Tourist</h3>
+                        <p>Bút máy cao cấp với thiết kế độc đáo, khắc họa hình ảnh vịnh Hạ Long, mang đậm bản sắc văn hóa địa phương.</p>
+                        <div class="reward-actions">
+                            <a href="#" class="redeem-button">
+                                <i class="fas fa-gift"></i> Đổi bằng điểm (1000 điểm)
+                            </a>
+                            <a href="https://zalo.me/0354997400" class="zalo-button" target="_blank">
+                                <i class="fab fa-zalo"></i> Liên hệ Zalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reward-item">
+                    <img src="images/quatang3.jpg" alt="Quà tặng 3">
+                    <div class="reward-info">
+                        <h3>Bình nước Hạ Long Tourist</h3>
+                        <p>Bình nước cao cấp với thiết kế độc đáo, in hình ảnh vịnh Hạ Long, mang đậm bản sắc văn hóa địa phương.</p>
+                        <div class="reward-actions">
+                            <a href="#" class="redeem-button">
+                                <i class="fas fa-gift"></i> Đổi bằng điểm (1200 điểm)
+                            </a>
+                            <a href="https://zalo.me/0354997400" class="zalo-button" target="_blank">
+                                <i class="fab fa-zalo"></i> Liên hệ Zalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section company-info">
+                <h3>CÔNG TY TNHH DU LỊCH VÀ THƯƠNG MẠI HẠ LONG TOURIST</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Trụ sở chính:</h4>
+                            <p>Số 15 đường Tân Lập, phường Hà Phong, TP.Hạ Long, Quảng Ninh</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-building"></i>
+                        <div>
+                            <h4>Văn phòng đại diện:</h4>
+                            <p>07 Trần Bình Trọng, phường Bãi Cháy, TP.Hạ Long, Quảng Ninh</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Liên hệ:</h4>
+                            <p>0203.655.8910 - 0969.818.366</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email:</h4>
+                            <p>Halongtourist@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section social-media">
+                <h3>Theo dõi chúng tôi</h3>
+                <div class="social-links">
+                    <a href="https://zalo.me/84969818366" class="social-link" target="_blank">
+                        <img src="images/logo_zalo.png" alt="Zalo">
+                        <span>Zalo</span>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100076413078560" class="social-link" target="_blank">
+                        <img src="images/logo_facebook.png" alt="Facebook">
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@ha.long.tourist" class="social-link" target="_blank">
+                        <img src="images/logo_tiktok.png" alt="TikTok">
+                        <span>TikTok</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section minimap">
+                <h3>Vị trí của chúng tôi</h3>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3727.1234567890123!2d107.0168303!3d20.969421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a57c1c3c3c3c3%3A0x1234567890abcdef!2s7%20Tr%E1%BA%A7n%20B%C3%ACnh%20Tr%E1%BB%8Dng%2C%20B%C3%A3i%20Ch%C3%A1y%2C%20H%E1%BA%A1%20Long%2C%20Qu%E1%BA%A3ng%20Ninh!5e0!3m2!1svi!2s!4v1234567890!5m2!1svi!2s"
+                        width="100%"
+                        height="200"
+                        style="border:0; border-radius: 8px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Halongtourist. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Chính sách bảo mật</a>
+                    <a href="#">Điều khoản sử dụng</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const body = document.body;
+
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            // Prevent body scroll when menu is open
+            body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !mobileMenuBtn.contains(e.target)) {
+                toggleMenu();
+            }
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    </script>
+</body>
+</html> 
