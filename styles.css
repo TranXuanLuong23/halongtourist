@@ -800,6 +800,14 @@ footer {
     object-fit: cover;
 }
 
+@media (max-width: 768px) {
+    .reward-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+}
+
 .reward-info {
     padding: 1.5rem;
 }
